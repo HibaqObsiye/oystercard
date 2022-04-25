@@ -31,5 +31,31 @@ describe Oystercard do
             expect(subject.deduct 1).to change{ subject.balance }.by -1
         end
     end
+    
+    it "checks oyster card is in journey" do
+        expect(subject).not_to be_in_journey
+    end
 
+    it "checks oystercard is touched in" do
+        subject.touch_in
+        expect(subject).to be_in_journey
+    end
+
+    it "checks oystercard is touched out" do
+        subject.touch_in
+        subject.touch_out
+        expect(subject).not_to be_in_journey
+    end
+
+    # it "checks oyster card is in journey" do
+    #     expect(subject.in_journey?).to eq(true)
+    # end
+
+    # it "checks oystercard is touched in" do
+    #     expect(subject.touch_in).to eq(:in_journey?)
+    # end
+
+    # it "checks oystercard is touched in" do
+    #     expect(subject.touch_out).to eq(:in_journey?)
+    # end
 end
