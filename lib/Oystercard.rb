@@ -1,7 +1,7 @@
 class Oystercard
 
   MAXIMUM_BALANCE = 90
-
+  
   attr_reader :balance
   attr_accessor :in_use
 
@@ -25,10 +25,13 @@ class Oystercard
 
   def touch_in
    !@in_use
+   fail "insufficient funds to touch in"
+   balance < 1
    # was in_use before (check commented out spec)
   end
 
   def touch_out
+    deduct(MINIMUM_CHARGE)
     @in_use
     # was !in_use before (check commented out spec)
   end

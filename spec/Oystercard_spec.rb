@@ -40,12 +40,25 @@ describe Oystercard do
         subject.touch_in
         expect(subject).to be_in_journey
     end
+    
+    
+        
 
     it "checks oystercard is touched out" do
         subject.touch_in
         subject.touch_out
         expect(subject).not_to be_in_journey
     end
+
+    it "will not touch in if below minimum balance" do
+     expect{subject.touch_in}.raise_error "insufficent funds"    
+    end
+
+    it " will deduct correct amount" do
+        subject.touch_in
+        expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
+    end
+
 
     # it "checks oyster card is in journey" do
     #     expect(subject.in_journey?).to eq(true)
